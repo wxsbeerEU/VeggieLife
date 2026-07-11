@@ -3,106 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belangrijke Vraag! ❤️</title>
+    <title>Ik heb een belangrijke vraag voor je... ❤️</title>
+    
+    <!-- Speels lettertype via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffe6e6;
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3d9 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Zwevende hartjes achtergrond */
+        .heart {
+            position: absolute;
+            color: rgba(214, 48, 49, 0.15);
+            font-size: 24px;
+            animation: floatUp 6s infinite linear;
+            bottom: -50px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
         }
 
         .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 400px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(214, 48, 49, 0.15);
+            width: 90%;
+            max-width: 550px;
+            text-align: center;
             position: relative;
+            z-index: 1;
+            transition: all 0.4s ease;
+            border: 4px solid #ff99c8;
+        }
+
+        .emoji-mascot {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s ease;
         }
 
         h1 {
             color: #d63031;
-            margin-bottom: 10px;
+            font-size: 2.2em;
+            margin-bottom: 15px;
         }
 
         p {
-            color: #2d3436;
-            font-size: 1.1em;
-            margin-bottom: 30px;
+            color: #4f5d75;
+            font-size: 1.2em;
+            margin-bottom: 35px;
+            line-height: 1.5;
         }
 
-        .buttons {
+        .buttons-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            gap: 25px;
+            min-height: 120px;
+            position: relative;
         }
 
         button {
-            padding: 12px 30px;
-            font-size: 1em;
-            font-weight: bold;
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: 700;
             border: none;
-            border-radius: 10px;
+            border-radius: 20px;
             cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            font-family: 'Fredoka', sans-serif;
             transition: transform 0.1s ease;
         }
 
         #yesBtn {
-            background-color: #2ecc71;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
             color: white;
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.1);
+            z-index: 10;
         }
 
         #noBtn {
-            background-color: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
             position: absolute;
+            z-index: 11;
+            white-space: nowrap;
+        }
+
+        /* Vragenlijst styling */
+        #iframeWrapper {
+            display: none;
+            margin-top: 25px;
+            width: 100%;
+            height: 550px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid #ffb3d9;
+        }
+
+        #formContainer {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Hee! 😊</h1>
-        <p id="question">Wil je met mij op date?</p>
+    <div class="container" id="mainContainer">
+        <div id="emoji" class="emoji-mascot">👉👈</div>
+        <h1 id="title">Hee! 😊</h1>
+        <p id="question">Ik heb een hele belangrijke vraag voor je... Wil je met mij op date?</p>
         
-        <div class="buttons">
+        <div class="buttons-container" id="btnWrapper">
             <button id="yesBtn" onclick="celebrate()">JA! 🎉</button>
             <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Nee 😢</button>
+        </div>
+
+        <div id="iframeWrapper">
+            <iframe id="formContainer" src="https://docs.google.com/forms/d/e/1FAIpQLScjNNyL2wkMj4BOe6OLKqep6dvoqxC5VI8LUwEU1jXWyxr9lQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
         </div>
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
-        const question = document.getElementById('question');
         const yesBtn = document.getElementById('yesBtn');
+        const emoji = document.getElementById('emoji');
+        const question = document.getElementById('question');
+        const title = document.getElementById('title');
+        const btnWrapper = document.getElementById('btnWrapper');
+        const iframeWrapper = document.getElementById('iframeWrapper');
+        const mainContainer = document.getElementById('mainContainer');
+
+        let noCount = 0;
+        let yesSize = 1;
+
+        const noTexts = [
+            "Nee 😢",
+            "Wacht, echt?",
+            "Weet je het zeker?",
+            "Verkeerde knop denk ik?",
+            "Klik op de groene!",
+            "Huh, hij doet het niet hè?",
+            "Nog steeds nee??",
+            "Mijn hart breekt... 💔",
+            "Je hebt geen keus meer! 😉",
+            "Oke, nu speel je vals!"
+        ];
+
+        const emojis = ["👉👈", "😮", "🥺", "🧐", "☹️", "😭", "😤", "😡", "🙄", "😈"];
+
+        // Hartjes genereren
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 4000);
 
         function moveButton() {
-            // Bereken een willekeurige positie binnen het scherm
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+            noCount++;
             
-            // Zet de knop vast op de body zodat hij overal kan springen
+            // Tekst en emoji updaten
+            const textIndex = Math.min(noCount, noTexts.length - 1);
+            noBtn.innerText = noTexts[textIndex];
+            emoji.innerText = emojis[Math.min(noCount, emojis.length - 1)];
+
+            // JA knop laten groeien
+            yesSize += 0.3;
+            yesBtn.style.transform = `scale(${yesSize})`;
+
+            // NEE knop verplaatsen over het hele scherm
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            let x = Math.random() * (window.innerWidth - btnWidth - 40) + 20;
+            let y = Math.random() * (window.innerHeight - btnHeight - 40) + 20;
+
             document.body.appendChild(noBtn);
-            
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
         }
 
         function celebrate() {
-            question.innerHTML = "Woehoe! Het staat genoteerd! 🥂❤️ Ik stuur je zo een berichtje!";
-            // Verberg de nee-knop als ze op Ja klikt
-            noBtn.style.display = 'none';
-            yesBtn.style.display = 'none';
+            // Confetti effecten
+            const duration = 4 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0, y: 0.8 } });
+                confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1, y: 0.8 } });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+
+            // Layout aanpassen naar formulier
+            emoji.innerText = "🥰🎉";
+            title.innerHTML = "Woehoe, JA! 🥂❤️";
+            question.innerHTML = "Dit wordt fantastisch! Omdat ik natuurlijk wel een perfecte date wil regelen, moet ik nog een paar kleine dingetjes van je weten. Vul je dit lijstje even in?";
+            
+            btnWrapper.style.display = 'none';
+            if (document.body.contains(noBtn)) {
+                noBtn.style.display = 'none';
+            }
+
+            iframeWrapper.style.display = 'block';
+            mainContainer.style.maxWidth = '700px';
         }
     </script>
 
