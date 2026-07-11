@@ -66,7 +66,6 @@
             line-height: 1.5;
         }
 
-        /* Flexbox zorgt ervoor dat de knoppen initieel ALTIJD perfect recht naast elkaar staan */
         .buttons-wrapper {
             display: flex;
             justify-content: center;
@@ -88,22 +87,20 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.08);
         }
 
-        /* De hoofdknoppen */
         #yesBtn {
             background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
             color: white;
-            width: 100%; /* Begint vullend */
+            width: 100%; 
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-origin: center;
         }
 
-        /* Begint onzichtbaar totdat stap 3 start */
         #noBtn {
             display: none;
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
             white-space: nowrap;
-            z-index: 9999; /* Zweeft overal bovenop zodra hij losbreekt */
+            z-index: 9999; 
             box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
         }
 
@@ -132,28 +129,24 @@
 
         body.date-mode #yesBtn {
             background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-            width: auto; /* Zorgt dat hij krimpt naar normale breedte naast de nee-knop */
+            width: auto; 
             flex: 1;
         }
 
         body.date-mode #noBtn {
-            flex: 1; /* Neemt netjes de helft van de ruimte in de container in */
+            flex: 1; 
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="mainContainer">
-        <!-- Start met het recept -->
         <div id="icon" class="food-image">🇮🇹🍝</div>
         <h1 id="title">Romige Gnocchi met Burrata</h1>
         <p id="question">Met zongedroogde tomaatjes, romige burrata, geroosterde pijnboompitten en verse basilicum. Zullen we dit binnenkort samen koken?</p>
         
         <div class="buttons-wrapper" id="btnContainer">
-            <!-- Alleen de JA knop start in beeld -->
             <button id="yesBtn" onclick="triggerOopsScreen()">JA, HEERLIJK! 😍</button>
-            
-            <!-- De Nee knop staat hier klaar, maar is via CSS verborgen tot stap 3 -->
             <button id="noBtn" ontouchstart="moveButton(event)" onclick="moveButton(event)">Nee 😢</button>
         </div>
     </div>
@@ -179,47 +172,35 @@
 
         const emojis = ["👉👈", "🥺", "🧐", "😭", "😤", "🙄", "😈"];
 
-        // STAP 2: Het 'Oops' scherm tonen
         function triggerOopsScreen() {
             if (step === 1) {
                 step = 2;
-
                 icon.innerText = "🤭";
                 title.innerHTML = "Oeps...";
                 question.innerHTML = "Dit is eigenlijk helemaal geen recept...";
-                
-                // Verander de grote knop tijdelijk naar 'Ok...'
                 yesBtn.innerText = "Ok...";
-                yesBtn.style.background = "#34495e"; // Neutrale donkere kleur voor de spanning
+                yesBtn.style.background = "#34495e"; 
                 yesBtn.setAttribute("onclick", "revealDatePrompt()");
             }
         }
 
-        // STAP 3: De echte date vraag activeren
         function revealDatePrompt() {
             if (step === 2) {
                 step = 3;
-                
-                // Activeer de roze date-modus styling via de body class
                 document.body.classList.add('date-mode');
-                
-                // Update naar de echte vraag
                 icon.innerText = "👉👈";
                 icon.style.fontSize = "65px";
                 title.innerHTML = "Verrassing! 🎉";
                 question.innerHTML = "We gaan lekker níét koken. Ik neem je gewoon mee uit eten! Wil je met mij op date? ❤️";
                 
-                // Zet de JA-knop naar de feestelijke groene modus
                 yesBtn.innerText = "JA! 🎉";
-                yesBtn.style.background = ""; // Reset naar de CSS gradient van date-mode
+                yesBtn.style.background = ""; 
                 yesBtn.setAttribute("onclick", "celebrate()");
                 
-                // Toon de NEE-knop. Dankzij flexbox staan ze nu PERFECT strak naast elkaar!
                 noBtn.style.display = "inline-block";
             }
         }
 
-        // Het weglopende mechanisme (Gebeurt pas als ze in stap 3 op NEE tikt)
         function moveButton(event) {
             if (event) event.preventDefault();
 
@@ -228,14 +209,13 @@
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             icon.innerText = emojis[Math.min(noCount, emojis.length - 1)];
 
-            // JA-knop groeit groter vanuit het midden
-            yesSize += 0.25;
+            // De groeiwaarde is nu verlaagd (0.12 i.p.v. 0.25) zodat de JA-knop rustig en mooi in verhouding groeit
+            yesSize += 0.12;
             yesBtn.style.transform = `scale(${yesSize})`;
 
-            // Breek de Nee-knop NU pas los uit de flexbox-structuur van de kader
             if (noBtn.style.position !== 'absolute') {
                 noBtn.style.position = 'absolute';
-                document.body.appendChild(noBtn); // Verplaats naar de body zodat hij overal kan vliegen
+                document.body.appendChild(noBtn); 
             }
 
             const containerRect = mainContainer.getBoundingClientRect();
@@ -246,7 +226,6 @@
             let randomX, randomY;
             let insideContainer = true;
 
-            // Intelligentie-check: Zorg dat hij ALTIJD buiten de witte kader terecht komt
             while (insideContainer) {
                 randomX = Math.max(padding, Math.floor(Math.random() * (window.innerWidth - btnWidth - padding)));
                 randomY = Math.max(padding, Math.floor(Math.random() * (window.innerHeight - btnHeight - padding)));
@@ -263,7 +242,6 @@
             noBtn.style.top = randomY + 'px';
         }
 
-        // De overwinning via WhatsApp
         function celebrate() {
             confetti({ particleCount: 160, spread: 80, origin: { y: 0.6 } });
 
