@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Belangrijke vraag... ❤️</title>
+    <title>Lekker Vegetarisch Recept 🍝</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -21,7 +21,7 @@
 
         body {
             font-family: 'Fredoka', sans-serif;
-            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3d9 100%);
+            background: #faf6f0; /* Rustige foodie achtergrond */
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -29,44 +29,50 @@
             overflow: hidden;
             position: relative;
             padding: 20px;
+            transition: background 0.8s ease;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 30px 20px;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(214, 48, 49, 0.15);
+            background-color: #ffffff;
+            padding: 25px 20px;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
             width: 100%;
             max-width: 360px;
             text-align: center;
             z-index: 5;
-            border: 3px solid #ff99c8;
+            border: 2px solid #e6dfd5;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .emoji-mascot {
+        /* Foodie styling in het begin */
+        .food-image {
             font-size: 65px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            transition: all 0.5s ease;
         }
 
         h1 {
-            color: #d63031;
-            font-size: 1.8em;
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 1.6em;
             margin-bottom: 10px;
+            transition: all 0.5s ease;
         }
 
         p {
-            color: #4f5d75;
-            font-size: 1.1em;
-            margin-bottom: 35px;
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-bottom: 25px;
             line-height: 1.4;
+            transition: all 0.5s ease;
         }
 
-        /* Een veilige container voor de knoppen die nooit verschuift */
         .buttons-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             min-height: 80px;
             position: relative;
             width: 100%;
@@ -77,52 +83,94 @@
             font-size: 1.1em;
             font-weight: 700;
             border: none;
-            border-radius: 15px;
+            border-radius: 16px;
             cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             font-family: 'Fredoka', sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.1s ease;
         }
 
+        /* Eerste knoppen zijn gezellig 'food' groen en oranje */
         #yesBtn {
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
             color: white;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-origin: center;
             display: inline-block;
+            flex: 1;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         #noBtn {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
+            background: #f2f4f4;
+            color: #7f8c8d;
+            flex: 1;
             white-space: nowrap;
             display: inline-block;
+        }
+
+        /* STYLES VOOR DE DATE-MODUS (AUTOMATISCH GEACTIVEERD NA DE KLIK) */
+        body.date-mode {
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3d9 100%);
+        }
+
+        body.date-mode .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(214, 48, 49, 0.15);
+            border: 3px solid #ff99c8;
+        }
+
+        body.date-mode h1 {
+            font-family: 'Fredoka', sans-serif;
+            color: #d63031;
+            font-size: 1.8em;
+        }
+
+        body.date-mode p {
+            color: #4f5d75;
+            font-size: 1.1em;
+        }
+
+        body.date-mode #yesBtn {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            flex: none; /* Niet meer de hele breedte vullen */
+        }
+
+        body.date-mode #noBtn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            flex: none;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="mainContainer">
-        <div id="emoji" class="emoji-mascot">👉👈</div>
-        <h1 id="title">Hee! 😊</h1>
-        <p id="question">Ik heb een hele belangrijke vraag voor je... Wil je met mij op date?</p>
+        <div id="icon" class="food-image">🇮🇹🍝</div>
+        <h1 id="title">Romige Gnocchi met Burrata</h1>
+        <p id="question">Met zongedroogde tomaatjes, romige burrata, geroosterde pijnboompitten en verse basilicum. Ziet dit er niet heerlijk uit? Zullen we dit samen koken?</p>
         
         <div class="buttons-wrapper" id="btnContainer">
-            <button id="yesBtn" onclick="celebrate()">JA! 🎉</button>
-            <button id="noBtn" ontouchstart="moveButton(event)" onclick="moveButton(event)">Nee 😢</button>
+            <!-- Eerste klik activeert de grap -->
+            <button id="yesBtn" onclick="revealDatePrompt()">JA, lekker! 😍</button>
+            <button id="noBtn" onclick="sayNoToFood()">Nee, bah 🙈</button>
         </div>
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
-        const emoji = document.getElementById('emoji');
+        const icon = document.getElementById('icon');
         const question = document.getElementById('question');
         const title = document.getElementById('title');
         const btnContainer = document.getElementById('btnContainer');
 
         let noCount = 0;
         let yesSize = 1;
+        let isDateMode = false;
 
+        // Grappige teksten voor de weglopende Nee-knop tijdens de date vraag
         const noTexts = [
             "Nee 😢", "Wacht, echt?", "Weet je het zeker?", 
             "Huh, mis!", "Klik de groene!", "Mijn hart breekt..", 
@@ -131,26 +179,58 @@
 
         const emojis = ["👉👈", "🥺", "🧐", "😭", "😤", "🙄", "😈"];
 
+        // Als ze in het begin op "Nee, bah" klikt (voor het recept)
+        function sayNoToFood() {
+            if (!isDateMode) {
+                question.innerHTML = "Haha, dacht het niet! Je hebt geen keuze, want we gaan eigenlijk iets veel leukers doen... Klik snel op die groene knop! 👇";
+                noBtn.style.display = "none";
+            }
+        }
+
+        // De grote omschakeling naar de date-vraag
+        function revealDatePrompt() {
+            if (!isDateMode) {
+                isDateMode = true;
+                
+                // Activeer de roze date-modus styling
+                document.body.classList.add('date-mode');
+                
+                // Update de content
+                icon.innerText = "👉👈";
+                title.innerHTML = "Oeps... Verrassing! 🤭";
+                question.innerHTML = "We gaan helemaal niet koken. Ik neem je gewoon lekker mee uit eten! Wil je met mij op date? ❤️";
+                
+                // Reset de knoppen naar het weglopend-systeem
+                yesBtn.innerText = "JA! 🎉";
+                yesBtn.setAttribute("onclick", "celebrate()"); // Nu pas gaat JA naar de overwinning
+                
+                noBtn.innerText = "Nee 😢";
+                noBtn.style.display = "inline-block";
+                // Koppel de mobiele ontouchstart voor het wegrennen
+                noBtn.setAttribute("ontouchstart", "moveButton(event)");
+                noBtn.setAttribute("onclick", "moveButton(event)");
+            }
+        }
+
+        // Het bekende wegren-mechanisme op het gsm-scherm
         function moveButton(event) {
             if (event) event.preventDefault();
 
             noCount++;
             
-            // Tekst en emoji veranderen
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
-            emoji.innerText = emojis[Math.min(noCount, emojis.length - 1)];
+            icon.innerText = emojis[Math.min(noCount, emojis.length - 1)];
 
-            // JA-knop groeit gecontroleerd
+            // Gecontroleerde groei van de JA-knop
             yesSize += 0.2;
             yesBtn.style.transform = `scale(${yesSize})`;
 
-            // Verander naar absolute positionering zodra ze erop klikt zodat hij kan ontsnappen
+            // Zet hem pas op absolute zodra hij gaat vliegen
             if (noBtn.style.position !== 'absolute') {
                 noBtn.style.position = 'absolute';
                 document.body.appendChild(noBtn);
             }
 
-            // Bereken een veilige positie op het gsm scherm
             const padding = 30;
             const maxX = window.innerWidth - noBtn.offsetWidth - padding;
             const maxY = window.innerHeight - noBtn.offsetHeight - padding;
@@ -162,21 +242,21 @@
             noBtn.style.top = randomY + 'px';
         }
 
+        // De finale overwinning
         function celebrate() {
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
 
-            emoji.innerText = "🥰🎉";
+            icon.innerText = "🥰🎉";
             title.innerHTML = "Woehoe, JA! 🥂❤️";
-            question.innerHTML = "Je wordt doorgestuurd naar WhatsApp om onze date te bezegelen...";
+            question.innerHTML = "Heel erg zin in! Je wordt nu doorgestuurd naar WhatsApp om het officieel te maken...";
             
-            // Verberg de knoppen volledig
             btnContainer.style.display = 'none';
             if (document.body.contains(noBtn)) noBtn.style.display = 'none';
 
             setTimeout(() => {
-                const text = encodeURIComponent("Ja, ik wil heel graag met je op date! 🥂❤️");
+                const text = encodeURIComponent("Ja, ik wil heel graag met je op date! Geen gnocchi, maar echt uit eten! 🥂❤️");
                 window.location.href = `https://wa.me/?text=${text}`;
-            }, 1500);
+            }, 1800);
         }
     </script>
 
