@@ -91,7 +91,7 @@
             background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
             color: white;
             width: 100%; 
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.2s ease;
             transform-origin: center;
         }
 
@@ -136,6 +136,12 @@
         body.date-mode #noBtn {
             flex: 1; 
         }
+
+        /* Voorkomt dat de JA-knop vervormt als het spel start en hij gaat schalen */
+        body.date-mode #yesBtn.growing {
+            flex: none;
+            width: 110px; /* Vaste breedte zodra hij groeit, zodat hij perfect rondom schaalt */
+        }
     </style>
 </head>
 <body>
@@ -166,7 +172,7 @@
 
         const noTexts = [
             "Nee 😢", "Wacht, echt?", "Weet je het zeker?", 
-            "Huh, mis!", "Klik de groene!", "Mijn hart breekt..", 
+            "Huh, mis!", "Klik de groene!", "Mijn heart breekt..", 
             "Geef maar op! 😉", "Nog steeds nee?!"
         ];
 
@@ -175,7 +181,7 @@
         function triggerOopsScreen() {
             if (step === 1) {
                 step = 2;
-                icon.innerText = "🤭";
+                icon.innerText = "😬"; // Jouw aangevraagde emoji!
                 title.innerHTML = "Oeps...";
                 question.innerHTML = "Dit is eigenlijk helemaal geen recept...";
                 yesBtn.innerText = "Ok...";
@@ -209,8 +215,13 @@
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             icon.innerText = emojis[Math.min(noCount, emojis.length - 1)];
 
-            // De groeiwaarde is nu verlaagd (0.12 i.p.v. 0.25) zodat de JA-knop rustig en mooi in verhouding groeit
-            yesSize += 0.12;
+            // Voeg de class toe die de flexbox uitschakelt en rustige, egale schaling toepast
+            if (!yesBtn.classList.contains('growing')) {
+                yesBtn.classList.add('growing');
+            }
+
+            // Subtiele groei (0.08 i.p.v. 0.12) zodat hij rustig en perfect in verhouding groeit
+            yesSize += 0.08;
             yesBtn.style.transform = `scale(${yesSize})`;
 
             if (noBtn.style.position !== 'absolute') {
