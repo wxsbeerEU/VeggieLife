@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Belangrijke vraag... ❤️</title>
     
-    <!-- Speels lettertype -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -18,7 +16,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent; /* Voorkomt blauwe flits op mobiel */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -28,7 +26,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Voorkomt scrollen op gsm */
+            overflow: hidden;
             position: relative;
             padding: 20px;
         }
@@ -39,9 +37,9 @@
             border-radius: 25px;
             box-shadow: 0 10px 25px rgba(214, 48, 49, 0.15);
             width: 100%;
-            max-width: 360px; /* Perfecte breedte voor gsm */
+            max-width: 360px;
             text-align: center;
-            z-index: 1;
+            z-index: 5;
             border: 3px solid #ff99c8;
         }
 
@@ -59,18 +57,19 @@
         p {
             color: #4f5d75;
             font-size: 1.1em;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             line-height: 1.4;
         }
 
-        /* Vaste ruimte voor de knoppen zodat ze niet over de tekst vallen */
-        .buttons-area {
-            position: relative;
-            height: 120px; 
-            width: 100%;
+        /* Een veilige container voor de knoppen die nooit verschuift */
+        .buttons-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 20px;
+            min-height: 80px;
+            position: relative;
+            width: 100%;
         }
 
         button {
@@ -87,18 +86,16 @@
         #yesBtn {
             background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
             color: white;
-            position: relative;
-            transition: transform 0.2s ease;
-            z-index: 5;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center;
+            display: inline-block;
         }
 
         #noBtn {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
-            position: absolute; /* Begint binnen de buttons-area */
-            right: 20px;
-            z-index: 10;
             white-space: nowrap;
+            display: inline-block;
         }
     </style>
 </head>
@@ -109,9 +106,8 @@
         <h1 id="title">Hee! 😊</h1>
         <p id="question">Ik heb een hele belangrijke vraag voor je... Wil je met mij op date?</p>
         
-        <div class="buttons-area" id="btnWrapper">
+        <div class="buttons-wrapper" id="btnContainer">
             <button id="yesBtn" onclick="celebrate()">JA! 🎉</button>
-            <!-- Op gsm werkt ontouchstart (aanraken) veel beter dan mouseover -->
             <button id="noBtn" ontouchstart="moveButton(event)" onclick="moveButton(event)">Nee 😢</button>
         </div>
     </div>
@@ -122,7 +118,7 @@
         const emoji = document.getElementById('emoji');
         const question = document.getElementById('question');
         const title = document.getElementById('title');
-        const btnWrapper = document.getElementById('btnWrapper');
+        const btnContainer = document.getElementById('btnContainer');
 
         let noCount = 0;
         let yesSize = 1;
@@ -136,7 +132,6 @@
         const emojis = ["👉👈", "🥺", "🧐", "😭", "😤", "🙄", "😈"];
 
         function moveButton(event) {
-            // Voorkom dubbele clicks/taps op gsm
             if (event) event.preventDefault();
 
             noCount++;
@@ -145,12 +140,17 @@
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             emoji.innerText = emojis[Math.min(noCount, emojis.length - 1)];
 
-            // JA-knop groeit gecontroleerd op gsm
-            yesSize += 0.25;
+            // JA-knop groeit gecontroleerd
+            yesSize += 0.2;
             yesBtn.style.transform = `scale(${yesSize})`;
 
-            // Bereken willekeurige positie over het HELE scherm, 
-            // maar blijf 30px weg van de randen zodat hij niet buiten beeld valt
+            // Verander naar absolute positionering zodra ze erop klikt zodat hij kan ontsnappen
+            if (noBtn.style.position !== 'absolute') {
+                noBtn.style.position = 'absolute';
+                document.body.appendChild(noBtn);
+            }
+
+            // Bereken een veilige positie op het gsm scherm
             const padding = 30;
             const maxX = window.innerWidth - noBtn.offsetWidth - padding;
             const maxY = window.innerHeight - noBtn.offsetHeight - padding;
@@ -158,28 +158,23 @@
             const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
             const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
-            // Verplaats de nee-knop naar de absolute body zodat hij overal op het gsm-scherm kan vliegen
-            document.body.appendChild(noBtn);
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
         }
 
         function celebrate() {
-            // Confetti effect
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
 
             emoji.innerText = "🥰🎉";
             title.innerHTML = "Woehoe, JA! 🥂❤️";
             question.innerHTML = "Je wordt doorgestuurd naar WhatsApp om onze date te bezegelen...";
             
-            // Knoppen weg
-            btnWrapper.style.display = 'none';
+            // Verberg de knoppen volledig
+            btnContainer.style.display = 'none';
             if (document.body.contains(noBtn)) noBtn.style.display = 'none';
 
-            // Jouw automatische WhatsApp-bericht (opent na 1.5 seconde)
             setTimeout(() => {
                 const text = encodeURIComponent("Ja, ik wil heel graag met je op date! 🥂❤️");
-                // Dit opent automatisch WhatsApp op haar gsm
                 window.location.href = `https://wa.me/?text=${text}`;
             }, 1500);
         }
