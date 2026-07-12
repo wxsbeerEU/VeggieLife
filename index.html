@@ -541,7 +541,7 @@
                 title.style.letterSpacing = "";
                 title.innerHTML = "Verrassing! ✨";
                 
-                question.innerHTML = "We gaan lekker helemaal níét koken. Ik neem je gewoon écht chique mee uit eten! Wil je met mij op date? ❤️";
+                question.innerHTML = "Ik geraakte niet thuis vanavond om je te zien, mijn excueses... Maar er was toch iets dat ik je wou vragen: Wil je met mij op date? ❤️";
                 
                 // Zet de JA-knop naar de feestelijke groene modus
                 yesBtn.innerText = "JA! 🎉";
@@ -633,13 +633,13 @@
 
             icon.innerText = "🥰🎉";
             title.innerHTML = "Woehoe, YES! 🥂✨";
-            question.innerHTML = "Beste beslissing ooit! Je wordt nu omgeleid naar WhatsApp om onze gastronomische avond te bezegelen...";
+            question.innerHTML = "Beste beslissing ooit! Ik stuur je naar WhattsApp om alles te regelen :) !";
             
             btnContainer.style.display = 'none';
             noBtn.style.display = 'none';
 
             setTimeout(() => {
-                const text = encodeURIComponent("Ja, ik wil heel graag met je op date! Geen gnocchi, maar echt chique uit eten! 🥂❤️");
+                const text = encodeURIComponent("Ja, ik wil op date!");
                 window.location.href = `https://wa.me/?text=${text}`;
             }, 2000);
         }
