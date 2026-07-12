@@ -3,27 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Een Culinair Geheim... 🍃</title>
+    <title>Gnocchi alla Salvia con Burrata - Culinaria</title>
     
-    <!-- Premium Fonts -->
+    <!-- Professionele Serif en Sans-Serif Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Lora:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
-            --salie-bg: #f3f6f3;
-            --salie-main: #87a987;
-            --salie-dark: #4a634a;
-            --salie-accent: #e3ebe3;
-            
-            --love-bg: linear-gradient(135deg, #fff0f0 0%, #ffd6e8 100%);
-            --love-main: #ff7597;
-            --love-container: rgba(255, 255, 255, 0.96);
-            --love-border: #ffb3c6;
+            --slate-dark: #2c3e50;
+            --slate-light: #7f8c8d;
+            --salie-green: #607e60; /* Professioneel saliegroen */
+            --salie-hover: #4a634a;
+            --cream-bg: #faf9f6;
+            --border-color: #e5e7eb;
         }
 
         * {
@@ -34,187 +31,260 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--salie-bg);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream-bg);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
-            padding: 24px;
-            transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 0 40px 0;
+            transition: background 0.8s ease;
         }
 
-        /* Elegante organische achtergrondvormen */
-        .bg-shape {
-            position: absolute;
-            background: var(--salie-accent);
-            border-radius: 43% 57% 64% 36% / 41% 45% 55% 59%;
-            z-index: 1;
-            filter: blur(40px);
-            opacity: 0.7;
-            transition: all 1.2s ease;
-        }
-
-        .shape1 { width: 300px; height: 300px; top: -50px; right: -50px; }
-        .shape2 { width: 250px; height: 250px; bottom: -50px; left: -50px; animation: morph 8s infinite alternate ease-in-out; }
-
-        @keyframes morph {
-            0% { border-radius: 43% 57% 64% 36% / 41% 45% 55% 59%; }
-            100% { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; }
-        }
-
-        /* Particle effect voor wegrennende knop */
-        .trail-particle {
-            position: absolute;
-            z-index: 9998;
-            pointer-events: none;
-            animation: fadeOut 0.6s forwards ease-out;
-            font-size: 20px;
-        }
-
-        @keyframes fadeOut {
-            0% { transform: scale(1) translateY(0); opacity: 1; }
-            100% { transform: scale(0.5) translateY(-20px); opacity: 0; }
-        }
-
-        /* De Main Display Card */
-        .container {
-            background-color: #ffffff;
-            padding: 40px 28px;
-            border-radius: 32px;
-            box-shadow: 0 20px 50px rgba(135, 169, 135, 0.12);
+        /* --- STRENG ZAKELIJKE & PROFESSIONELE HEADER --- */
+        header {
             width: 100%;
-            max-width: 360px;
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
             text-align: center;
-            z-index: 10;
-            border: 1px solid rgba(135, 169, 135, 0.2);
-            position: relative;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            letter-spacing: 2px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--slate-dark);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            z-index: 5;
         }
 
-        /* Visual Wrapper met zachte gloed */
-        .visual-wrapper {
-            width: 100px;
-            height: 100px;
-            background: var(--salie-accent);
-            border-radius: 50%;
+        header span {
+            color: var(--salie-green);
+        }
+
+        /* De Recepten-kaart (Begint super strak en clean) */
+        .recipe-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 360px;
+            overflow: hidden;
+            z-index: 10;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Professionele "Gerecht Foto" look met CSS gradients */
+        .recipe-hero-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 24px auto;
-            box-shadow: inset 0 4px 10px rgba(0,0,0,0.02);
-            transition: all 0.8s ease;
+            position: relative;
+            transition: all 0.5s ease;
         }
 
-        .food-image {
-            font-size: 45px;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .recipe-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--salie-green);
+            color: white;
+            padding: 4px 10px;
+            font-size: 0.75em;
+            font-weight: 500;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .food-emoji {
+            font-size: 60px;
+            transition: transform 0.4s ease;
+        }
+
+        .recipe-content {
+            padding: 25px 20px;
+            text-align: left;
+        }
+
+        .recipe-meta {
+            font-size: 0.8em;
+            color: var(--slate-light);
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .recipe-meta span.stars {
+            color: #f1c40f;
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--salie-dark);
-            font-size: 1.8em;
-            font-weight: 700;
-            margin-bottom: 14px;
+            font-family: 'Lora', serif;
+            color: var(--slate-dark);
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 12px;
             line-height: 1.3;
-            transition: all 0.6s ease;
         }
 
-        p {
-            color: #6a7b6a;
-            font-size: 1.05em;
-            margin-bottom: 35px;
+        p.description {
+            color: #555;
+            font-size: 0.95em;
             line-height: 1.6;
-            transition: all 0.6s ease;
+            margin-bottom: 20px;
+        }
+
+        /* Saai, officieel ogende ingrediëntenlijst */
+        .ingredients-box {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-left: 3px solid var(--salie-green);
+        }
+
+        .ingredients-box h3 {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            color: var(--slate-dark);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .ingredients-box ul {
+            list-style: none;
+            font-size: 0.9em;
+            color: #64748b;
+        }
+
+        .ingredients-box li {
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ingredients-box li::before {
+            content: "•";
+            color: var(--salie-green);
+            font-weight: bold;
         }
 
         .buttons-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 16px;
-            min-height: 64px;
-            position: relative;
             width: 100%;
         }
 
-        /* High-End Button Base */
+        /* Professionele Call-to-Action Knop */
         button {
-            padding: 16px 32px;
-            font-size: 1.1em;
+            padding: 14px 24px;
+            font-size: 1em;
             font-weight: 600;
             border: none;
-            border-radius: 20px;
+            border-radius: 8px;
             cursor: pointer;
-            letter-spacing: -0.2px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(96, 126, 96, 0.15);
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            transition: all 0.2s ease;
         }
 
         #yesBtn {
-            background: var(--salie-main);
+            background-color: var(--salie-green);
             color: white;
-            width: 100%;
             transform-origin: center center;
         }
 
-        #yesBtn:shadow {
-            box-shadow: 0 10px 25px rgba(135, 169, 135, 0.4);
+        #yesBtn:hover {
+            background-color: var(--salie-hover);
         }
 
         #noBtn {
             display: none;
-            background: #ffffff;
-            color: #666;
-            border: 2px solid #eee;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
             white-space: nowrap;
             z-index: 9999; 
             position: absolute;
+            border-radius: 16px;
+            font-family: 'Fredoka', sans-serif;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
         }
 
-        /* ================= NEXT LEVEL TRANSITIE: DATE MODE ================= */
+        /* --- PARTICLES SPOOR EFFECT --- */
+        .trail-particle {
+            position: absolute;
+            z-index: 9998;
+            pointer-events: none;
+            animation: fadeOut 0.5s forwards ease-out;
+            font-size: 18px;
+        }
+
+        @keyframes fadeOut {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.5) translateY(-15px); opacity: 0; }
+        }
+
+        /* ================= DE DATA TRANSFORMATIE (STAP 3) ================= */
         body.date-mode {
-            background: var(--love-bg);
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3d9 100%);
             font-family: 'Fredoka', sans-serif;
         }
 
-        body.date-mode .bg-shape {
-            background: #ffebf0;
-            opacity: 0.6;
+        body.date-mode header {
+            display: none; /* Verberg de saaie topbalk */
         }
 
-        body.date-mode .container {
-            background-color: var(--love-container);
-            border-radius: 36px;
-            box-shadow: 0 25px 60px rgba(255, 117, 151, 0.18);
-            border: 2px solid var(--love-border);
+        body.date-mode .recipe-card {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(214, 48, 49, 0.15);
+            border: 3px solid #ff99c8;
+            margin-top: 40px; /* Compenseer wegvallen header */
         }
 
-        body.date-mode .visual-wrapper {
+        body.date-mode .recipe-hero-image {
             background: #fff0f3;
-            transform: scale(1.1);
+            height: 110px;
+        }
+
+        body.date-mode .recipe-badge {
+            display: none;
+        }
+
+        body.date-mode .recipe-meta {
+            display: none;
+        }
+
+        body.date-mode .ingredients-box {
+            display: none;
         }
 
         body.date-mode h1 {
             font-family: 'Fredoka', sans-serif;
             color: #d63031;
-            font-size: 2.1em;
-            font-weight: 700;
+            font-size: 2em;
+            text-align: center;
         }
 
-        body.date-mode p {
-            color: #5c6b73;
+        body.date-mode p.description {
+            color: #4f5d75;
             font-size: 1.15em;
+            text-align: center;
         }
 
         body.date-mode button {
             font-family: 'Fredoka', sans-serif;
             font-weight: 700;
-            border-radius: 22px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            font-size: 1.1em;
         }
 
         body.date-mode #yesBtn {
@@ -225,14 +295,10 @@
         }
 
         body.date-mode #noBtn {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            border: none;
             flex: 1;
-            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.25);
         }
 
-        /* Fix voor stabiele schaling */
+        /* Voorkomt vervorming van de JA knop bij het schalen */
         body.date-mode #yesBtn.growing {
             flex: none;
             width: 120px;
@@ -241,20 +307,43 @@
 </head>
 <body>
 
-    <!-- Sferische sfeerelementen -->
-    <div class="bg-shape shape1" id="s1"></div>
-    <div class="bg-shape shape2" id="s2"></div>
+    <!-- Officiële Navigatiebalk -->
+    <header>
+        Mijn<b>Culinaria</b><span>.nl</span> — Recept van de dag
+    </header>
 
-    <div class="container" id="mainContainer">
-        <div class="visual-wrapper" id="visualBg">
-            <div id="icon" class="food-image">🍃🍝</div>
+    <div class="recipe-card" id="mainContainer">
+        <!-- Professionele Header afbeelding look -->
+        <div class="recipe-hero-image" id="heroBg">
+            <span class="recipe-badge" id="badge">Vega Gids</span>
+            <div id="icon" class="food-emoji">🍝</div>
         </div>
-        <h1 id="title">Gnocchi alla Salvia</h1>
-        <p id="question">Zachtsmeltende gnocchi in een rijke saus van gebruinde salieboter, knapperige pijnboompitten en geraspte Parmezaan. Zullen we dit binnenkort samen maken?</p>
         
-        <div class="buttons-wrapper" id="btnContainer">
-            <button id="yesBtn" onclick="triggerOopsScreen()">JA, GEWELDIG! 😍</button>
-            <button id="noBtn" ontouchstart="moveButton(event)" onclick="moveButton(event)">Nee 😢</button>
+        <div class="recipe-content">
+            <div class="recipe-meta" id="metaInfo">
+                <span class="stars">★★★★★</span> <span>4.9 (1.2k reviews)</span> • <span>25 min</span>
+            </div>
+            
+            <h1 id="title">Gnocchi alla Salvia con Burrata</h1>
+            
+            <p class="description" id="question">Een authentiek Noord-Italiaans gerecht met zachtsmeltende gnocchi, ambachtelijke romige burrata en een verfijnde saus op basis van biologische salieboter. Wilt u de stap-voor-stap kookinstructies laden?</p>
+            
+            <!-- Strakke ingrediëntenbox voor de geloofwaardigheid -->
+            <div class="ingredients-box" id="ingBox">
+                <h3>Ingrediënten (2 personen)</h3>
+                <ul>
+                    <li>500g Verse Gnocchi di patate</li>
+                    <li>150g Romige Burrata (Cremosa)</li>
+                    <li>1 bosje Verse biologische salie</li>
+                    <li>50g Ongezouten roomboter</li>
+                </ul>
+            </div>
+            
+            <div class="buttons-wrapper" id="btnContainer">
+                <!-- Begint als een formele, strakke actieknop -->
+                <button id="yesBtn" onclick="triggerOopsScreen()">Kook dit gerecht</button>
+                <button id="noBtn" ontouchstart="moveButton(event)" onclick="moveButton(event)">Nee 😢</button>
+            </div>
         </div>
     </div>
 
@@ -266,7 +355,10 @@
         const title = document.getElementById('title');
         const btnContainer = document.getElementById('btnContainer');
         const mainContainer = document.getElementById('mainContainer');
-        const visualBg = document.getElementById('visualBg');
+        const ingBox = document.getElementById('ingBox');
+        const metaInfo = document.getElementById('metaInfo');
+        const badge = document.getElementById('badge');
+        const heroBg = document.getElementById('heroBg');
 
         let noCount = 0;
         let yesSize = 1;
@@ -280,68 +372,78 @@
 
         const emojis = ["👉👈", "🥺", "🧐", "😭", "😤", "🙄", "😈"];
 
-        // STAP 2: De 'Oops' overgang met de gevraagde emoji
+        // STAP 2: Ongemakkelijk betrapt-scherm met de gevraagde emoji 😬
         function triggerOopsScreen() {
             if (step === 1) {
                 step = 2;
-                
-                // Subtiele haptische trilling simuleren op mobiel indien ondersteund
-                if (navigator.vibrate) navigator.vibrate(50);
 
                 icon.innerText = "😬";
+                icon.style.fontSize = "70px";
                 title.innerHTML = "Oeps...";
-                question.innerHTML = "Dit is eigenlijk helemaal geen recepten-website...";
+                question.innerHTML = "Dit is eigenlijk helemaal geen officiële recepten-website...";
                 
+                // Verberg de culinaire details
+                ingBox.style.display = "none";
+                metaInfo.style.display = "none";
+                badge.style.display = "none";
+                heroBg.style.background = "#e2e8f0";
+                
+                // Verander de hoofdknop tijdelijk naar 'Ok...'
                 yesBtn.innerText = "Ok...";
-                yesBtn.style.background = "#4a5568";
+                yesBtn.style.backgroundColor = "#34495e";
                 yesBtn.style.boxShadow = "none";
                 yesBtn.setAttribute("onclick", "revealDatePrompt()");
             }
         }
 
-        // STAP 3: De ultieme switch naar het high-end date thema
+        // STAP 3: De plottwist schiet in beeld
         function revealDatePrompt() {
             if (step === 2) {
                 step = 3;
                 
+                // Activeer de speelse roze date styling
                 document.body.classList.add('date-mode');
                 
+                // Update naar de echte vraag
                 icon.innerText = "👉👈";
-                title.innerHTML = "Verrassing! ✨";
+                title.innerHTML = "Verrassing! 🎉";
                 question.innerHTML = "We gaan lekker níét koken. Ik neem je gewoon écht mee uit eten! Wil je met mij op date? ❤️";
                 
+                // Reset de JA-knop en maak hem flexibel naast de nee-knop
                 yesBtn.innerText = "JA! 🎉";
-                yesBtn.style.background = ""; 
+                yesBtn.style.backgroundColor = ""; 
                 yesBtn.setAttribute("onclick", "celebrate()");
                 
+                // Toon de NEE-knop via de wrapper flexbox layout
+                btnContainer.style.display = "flex";
+                btnContainer.style.gap = "15px";
                 noBtn.style.display = "inline-block";
             }
         }
 
-        // NEXT LEVEL: Intelligent ontwijkings-mechanisme + Emoji deeltjesspoor
+        // Het geavanceerde ontwijkingsmechanisme buiten de kader
         function moveButton(event) {
             if (event) event.preventDefault();
 
-            // Genereer een brekend hartje op de oude plek van de knop als visueel effect
+            // Trail particle effect
             const rectBtnOld = noBtn.getBoundingClientRect();
             const particle = document.createElement('div');
             particle.classList.add('trail-particle');
-            particle.innerText = noCount > 4 ? '💔' : '😢';
+            particle.innerText = noCount > 3 ? '💔' : '😢';
             particle.style.left = (rectBtnOld.left + window.scrollX + rectBtnOld.width / 2 - 10) + 'px';
             particle.style.top = (rectBtnOld.top + window.scrollY) + 'px';
             document.body.appendChild(particle);
-            setTimeout(() => particle.remove(), 600);
+            setTimeout(() => particle.remove(), 500);
 
             noCount++;
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             icon.innerText = emojis[Math.min(noCount, emojis.length - 1)];
 
-            // Schakel flexbox direct vloeiend uit zonder verspringing
             if (!yesBtn.classList.contains('growing')) {
                 yesBtn.classList.add('growing');
             }
 
-            // Rustige, perfect proportionele schaling
+            // Rustige, schone schaling
             yesSize += 0.08;
             yesBtn.style.transform = `scale(${yesSize})`;
 
@@ -358,16 +460,15 @@
             let randomX, randomY;
             let insideContainer = true;
 
-            // Wiskundige grid-check: Blijf buiten de witte container
             while (insideContainer) {
                 randomX = Math.max(padding, Math.floor(Math.random() * (window.innerWidth - btnWidth - padding)));
                 randomY = Math.max(padding, Math.floor(Math.random() * (window.innerHeight - btnHeight - padding)));
 
-                const hitsContainerX = (randomX + btnWidth > containerRect.left - 20) && (randomX < containerRect.right + 20);
-                const hitsContainerY = (randomY + btnHeight > containerRect.top - 20) && (randomY < containerRect.bottom + 20);
+                const hitsContainerX = (randomX + btnWidth > containerRect.left - 15) && (randomX < containerRect.right + 15);
+                const hitsContainerY = (randomY + btnHeight > containerRect.top - 15) && (randomY < containerRect.bottom + 15);
 
                 if (!(hitsContainerX && hitsContainerY)) {
-                    insideContainer = false;
+                    insideContainer = false; 
                 }
             }
 
@@ -375,27 +476,25 @@
             noBtn.style.top = randomY + 'px';
         }
 
-        // De grote ontknoping (Confetti-orkaan + WhatsApp redirection)
         function celebrate() {
-            // Luxe gelaagde confetti
             const end = Date.now() + 3 * 1000;
             (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0, y: 0.8 }, colors: ['#ff7597', '#ffb3c6', '#2ecc71'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1, y: 0.8 }, colors: ['#ff7597', '#ffb3c6', '#2ecc71'] });
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0, y: 0.8 } });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1, y: 0.8 } });
                 if (Date.now() < end) requestAnimationFrame(frame);
             }());
 
             icon.innerText = "🥰🎉";
             title.innerHTML = "Woehoe, YES! 🥂✨";
-            question.innerHTML = "Geweldig! Je wordt nu omgeleid naar WhatsApp om de details door te spreken...";
+            question.innerHTML = "Geweldig! Je wordt nu omgeleid naar WhatsApp om de details te horen...";
             
             btnContainer.style.display = 'none';
             noBtn.style.display = 'none';
 
             setTimeout(() => {
-                const text = encodeURIComponent("Ja, ik wil heel graag met je op date! Geen gnocchi, maar écht luxe uit eten! 🥂❤️");
+                const text = encodeURIComponent("Ja, ik wil heel graag met je op date! Geen gnocchi, maar echt uit eten! 🥂❤️");
                 window.location.href = `https://wa.me/?text=${text}`;
-            }, 2000);
+            }, 1800);
         }
     </script>
 
