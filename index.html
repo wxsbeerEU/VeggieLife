@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>L'Art Culinaire - Gnocchi d'Autore</title>
     
-    <!-- Premium Fonts -->
+    <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Fredoka:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Fredoka:wght@600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Confetti Library -->
+    <!-- Confetti Library vanaf betrouwbare CDN -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -19,11 +19,13 @@
             --salie-medium: #435e47;
             --salie-light: #8fa89b;
             --gold: #d4af37;
+            --gold-hover: #bda032;
             --cream: #fbfbf9;
+            --transition-speed: 0.8s;
             
+            --love-bg: linear-gradient(135deg, #fff0f5 0%, #ffe3ec 100%);
+            --love-main: #ff5e7e;
             --love-dark: #9e2a4b;
-            --love-medium: #ff5e7e;
-            --love-bg: #fff2f5;
             --love-border: #ffb3c6;
         }
 
@@ -45,17 +47,29 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
-            padding-bottom: 40px;
-            transition: background 0.8s ease, color 0.8s ease;
+            padding-bottom: 50px;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* --- PREMIUM NAVBAR --- */
+        /* Subtiel luxe stipjespatroon op de achtergrond */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(45, 65, 48, 0.04) 1.5px, transparent 0);
+            background-size: 30px 30px;
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        /* --- LUXE RESTAURANT NAVBAR --- */
         nav {
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(45, 65, 48, 0.08);
-            padding: 20px 40px;
+            padding: 22px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -66,8 +80,8 @@
         .nav-logo {
             font-family: 'Cinzel', serif;
             font-weight: 700;
-            font-size: 1.2em;
-            letter-spacing: 3px;
+            font-size: 1.3em;
+            letter-spacing: 4px;
             color: var(--salie-dark);
             transition: color 0.8s ease;
         }
@@ -76,41 +90,42 @@
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 35px;
             font-size: 0.8em;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 500;
+            letter-spacing: 2px;
+            font-weight: 600;
             color: var(--salie-medium);
             transition: color 0.8s ease;
         }
 
         @media (max-width: 850px) {
-            nav { padding: 15px 20px; }
-            .nav-links { display: none; }
+            nav { padding: 18px 24px; }
+            .nav-links { display: none; } /* Clean op mobiel */
         }
 
-        /* --- VLOEIBAAR DESIGN SYSTEM (GRID) --- */
+        /* --- STABILE RESPONSIVE GRID INDELING --- */
         .main-wrapper {
             width: 90%;
-            max-width: 1050px;
-            margin: 40px auto;
+            max-width: 1100px;
+            margin: 50px auto;
             background: #ffffff;
             border: 1px solid rgba(45, 65, 48, 0.08);
             border-radius: 32px;
-            box-shadow: 0 20px 50px rgba(45, 65, 48, 0.05);
+            box-shadow: 0 25px 55px rgba(45, 65, 48, 0.04);
             display: grid;
             grid-template-columns: 1fr 1.1fr;
             overflow: hidden;
             z-index: 10;
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         @media (max-width: 850px) {
             .main-wrapper {
                 grid-template-columns: 1fr;
                 max-width: 420px;
-                margin: 20px auto;
+                margin: 25px auto;
+                border-radius: 28px;
             }
         }
 
@@ -121,53 +136,55 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            min-height: 320px;
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            min-height: 400px;
+            transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         @media (max-width: 850px) {
-            .hero-gallery { min-height: 200px; }
+            .hero-gallery { min-height: 220px; }
         }
 
         .big-emoji {
-            font-size: 90px;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
-            transition: all 0.5s ease;
+            font-size: 100px;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.18));
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Rechterkant: Content Panel */
+        /* Rechterkant: Culinair Content Panel */
         .recipe-details {
-            padding: 45px 40px;
+            padding: 50px 45px;
             display: flex;
             flex-direction: column;
             text-align: left;
             justify-content: center;
-            transition: all 0.8s ease;
+            transition: all var(--transition-speed) ease;
         }
 
         @media (max-width: 850px) {
-            .recipe-details { padding: 30px 24px; }
+            .recipe-details { padding: 35px 24px; }
         }
 
         .recipe-tag {
             font-size: 0.8em;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             color: var(--gold);
-            font-weight: 600;
-            margin-bottom: 8px;
-            transition: opacity 0.4s ease;
+            font-weight: 700;
+            margin-bottom: 10px;
+            transition: opacity 0.3s ease;
         }
 
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: 2.2em;
+            font-size: 2.4em;
             font-weight: 600;
-            line-height: 1.2;
+            line-height: 1.25;
             color: var(--salie-dark);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             transition: all 0.6s ease;
         }
+
+        @media (max-width: 768px) { h1 { font-size: 1.9em; } }
 
         .rating-row {
             display: flex;
@@ -175,29 +192,30 @@
             gap: 15px;
             font-size: 0.85em;
             color: var(--salie-medium);
-            margin-bottom: 25px;
+            margin-bottom: 28px;
             border-bottom: 1px solid rgba(45, 65, 48, 0.08);
             padding-bottom: 15px;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
         }
 
-        .stars { color: var(--gold); letter-spacing: 1px; }
+        .stars { color: var(--gold); letter-spacing: 1.5px; }
 
         .recipe-desc {
-            font-size: 1.02em;
-            line-height: 1.7;
+            font-size: 1.05em;
+            line-height: 1.75;
             color: #4a554a;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             transition: all 0.6s ease;
         }
 
-        /* Luxe ingrediëntenkaart */
+        /* Luxe ingrediënten-card */
         .ingredients-card {
-            background: #fdfdfb;
+            background: #fdfdfc;
             border: 1px solid rgba(45, 65, 48, 0.06);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 30px;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
             transition: all 0.4s ease;
         }
 
@@ -205,42 +223,50 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            border-bottom: 1px dashed rgba(45, 65, 48, 0.08);
-            padding-bottom: 8px;
+            margin-bottom: 14px;
+            border-bottom: 1px dashed rgba(45, 65, 48, 0.1);
+            padding-bottom: 10px;
         }
 
         .ingredients-header h3 {
             font-family: 'Cinzel', serif;
-            font-size: 0.9em;
+            font-size: 0.95em;
             letter-spacing: 1px;
         }
 
         .servings-selector {
             font-size: 0.8em;
             background: var(--cream);
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             font-weight: 600;
+            border: 1px solid rgba(45, 65, 48, 0.05);
         }
 
         .ingredients-list {
             list-style: none;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            font-size: 0.9em;
+            gap: 10px;
+            font-size: 0.92em;
             color: #556356;
+        }
+
+        @media (max-width: 480px) { .ingredients-list { grid-template-columns: 1fr; } }
+
+        .ingredients-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .ingredients-list li::before {
             content: "✦";
             color: var(--gold);
-            margin-right: 6px;
             font-size: 0.8em;
         }
 
-        /* Knoppen Area */
+        /* Actie-knoppen wrapper */
         .cta-container {
             display: flex;
             gap: 16px;
@@ -251,15 +277,15 @@
 
         button {
             padding: 16px 32px;
-            font-size: 1em;
+            font-size: 1.05em;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 8px 20px rgba(45, 65, 48, 0.08);
+            box-shadow: 0 8px 22px rgba(45, 65, 48, 0.1);
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -269,6 +295,11 @@
             border: 1px solid var(--gold);
             width: 100%;
             transform-origin: center center;
+        }
+
+        #yesBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(45, 65, 48, 0.2);
         }
 
         #noBtn {
@@ -281,39 +312,46 @@
             border-radius: 16px;
             font-family: 'Fredoka', sans-serif;
             text-transform: none;
-            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.35);
         }
 
-        /* --- FONKELEND DEELTJESSPOOR --- */
+        /* --- INTERACTIEVE TRAIL PARTICLES --- */
         .trail-particle {
             position: absolute;
             z-index: 9998;
             pointer-events: none;
-            animation: particleMagic 0.7s forwards cubic-bezier(0.19, 1, 0.22, 1);
-            font-size: 22px;
+            animation: particleMagic 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1);
+            font-size: 24px;
+            filter: drop-shadow(0 0 6px rgba(255, 94, 126, 0.4));
         }
 
         @keyframes particleMagic {
-            0% { transform: scale(0.4) translateY(0); opacity: 1; }
-            100% { transform: scale(1.3) translateY(-45px); opacity: 0; }
+            0% { transform: scale(0.3) translateY(0) rotate(0deg); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: scale(1.4) translateY(-50px) rotate(120deg); opacity: 0; }
         }
 
-        /* ================= HIGH-END TRANSITIE: DATE-MODE ================= */
+        /* ================= HIGH-END TRANSITIE: EXCLUSIEVE DATE-MODE ================= */
         body.date-mode {
             background-color: var(--love-bg);
         }
 
+        body.date-mode::before {
+            background-image: radial-gradient(rgba(255, 94, 126, 0.06) 1.5px, transparent 0);
+            opacity: 1;
+        }
+
         body.date-mode nav {
-            background-color: rgba(255, 242, 245, 0.95);
+            background-color: rgba(255, 242, 245, 0.96);
             border-bottom-color: var(--love-border);
         }
 
         body.date-mode .nav-logo { color: var(--love-dark); }
-        body.date-mode .nav-links { color: var(--love-medium); }
+        body.date-mode .nav-links { color: var(--love-main); }
 
         body.date-mode .main-wrapper {
             border-color: var(--love-border);
-            box-shadow: 0 25px 60px rgba(255, 94, 126, 0.12);
+            box-shadow: 0 25px 60px rgba(255, 94, 126, 0.14);
         }
 
         body.date-mode .hero-gallery {
@@ -323,7 +361,8 @@
         body.date-mode h1 {
             font-family: 'Fredoka', sans-serif;
             color: #d63031;
-            font-size: 2.4em;
+            font-size: 2.3em;
+            font-weight: 700;
         }
 
         body.date-mode .recipe-desc {
@@ -337,9 +376,10 @@
             font-family: 'Fredoka', sans-serif;
             font-weight: 700;
             text-transform: none;
-            border-radius: 16px;
-            font-size: 1.15em;
+            border-radius: 18px;
+            font-size: 1.2em;
             letter-spacing: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
         }
 
         body.date-mode #yesBtn {
@@ -347,7 +387,7 @@
             border: none;
             width: auto;
             flex: 1;
-            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 12px 30px rgba(46, 204, 113, 0.35);
         }
 
         body.date-mode #noBtn {
@@ -356,16 +396,16 @@
             position: relative;
         }
 
-        /* Zorgt dat de JA knop perfect rondom schaalt zonder de grid te breken */
+        /* Stabiele schaling fix voor de groei-animatie */
         body.date-mode #yesBtn.growing {
             flex: none;
-            width: 130px;
+            width: 135px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Luxe Top Navigatiebalk -->
+    <!-- Premium Top Navigatiebalk -->
     <nav id="navbar">
         <div class="nav-logo" id="navLogo">L'ART <span>CULINAIRE</span></div>
         <div class="nav-links" id="navLinks">
@@ -381,7 +421,7 @@
             <div id="icon" class="big-emoji">🍝</div>
         </div>
         
-        <!-- Rechterkant: Culinair Detailoverzicht -->
+        <!-- Rechterkant: Culinair Content Panel -->
         <div class="recipe-details" id="detailsPanel">
             <span class="recipe-tag" id="tag">Chef's Signature</span>
             <h1 id="title">Gnocchi alla Salvia con Burrata</h1>
@@ -448,24 +488,24 @@
         const emojis = ["👉👈", "🥺", "🧐", "😭", "😤", "🙄", "😈"];
         const particlePool = ["✨", "💖", "❤️", "⭐"];
 
-        // STAP 2: DE CINEMATIC PLOT TWIST (Vloeiend gedimd, uiterst professioneel)
+        // STAP 2: DE CINEMATIC PLOT TWIST (Echte sfeervolle dimming)
         function triggerOopsScreen() {
             if (step === 1) {
                 step = 2;
                 
                 if (navigator.vibrate) navigator.vibrate(50);
 
-                // Geleidelijke bioscoop-stijl dimming van de linkerkant
-                heroVisual.style.background = "linear-gradient(135deg, #232d25 0%, #171e18 100%)";
-                icon.innerText = "😬"; // Gevraagde emoji
+                // Geleidelijke chique dimming van de fotokaart naar donkergroen/zwart
+                heroVisual.style.background = "linear-gradient(135deg, #1e2920 0%, #111812 100%)";
+                icon.innerText = "😬"; // Jouw gevraagde emoji!
                 
                 // Content elegant updaten
                 title.style.fontFamily = "'Montserrat', sans-serif";
                 title.style.fontSize = "1.5em";
                 title.style.letterSpacing = "1px";
-                title.innerHTML = "<span style='color: var(--gold); font-size: 0.6em; letter-spacing: 2px; font-weight:600;'>ATTENTIE VAN DE CHEF...</span><br>OEPS!";
+                title.innerHTML = "<span style='color: var(--gold); font-size: 0.6em; letter-spacing: 2px; font-weight:700;'>ATTENTIE VAN DE CHEF...</span><br>OEPS!";
                 
-                question.innerHTML = "Het spijt ons ten zeerste. Dit premium recept is op dit moment helaas niet meer beschikbaar in onze database... Er is een handmatige modificatie vereist.";
+                question.innerHTML = "Het spijt ons ten zeerste. Dit premium recept is op dit moment helaas niet meer beschikbaar in onze database... Er is een handmatige modificatie gedetecteerd.";
                 
                 // Verberg de ingrediënten strak met CSS fade
                 ingCard.style.opacity = "0"; 
@@ -478,7 +518,7 @@
                     tag.style.display = "none";
                 }, 300);
 
-                // Update de hoofdknop
+                // Update de hoofdknop naar chique goud
                 yesBtn.innerText = "Laad modificatie...";
                 yesBtn.style.background = "linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%)"; 
                 yesBtn.style.border = "none";
@@ -486,25 +526,29 @@
             }
         }
 
-        // STAP 3: HET LUXUEZE EN STRENG PROFESSIONELE DATE SCHERM
+        // STAP 3: HET LUXUEZE DATE SCHERM (100000x vloeiender ingeladen!)
         function revealDatePrompt() {
             if (step === 2) {
                 step = 3;
                 
-                // Activeer het high-end liefdes-kleurenpalet
+                // Schakel over naar de premium roze/liefdes-stijlen via de body class
                 document.body.classList.add('date-mode');
                 
-                // Vloeiende reset van de titels en teksten naar een strakke look
+                // Vloeiende reset van de elementen binnen de bestaande grid
                 icon.innerText = "👉👈";
+                title.style.fontFamily = ""; // Reset naar Fredoka via date-mode CSS
+                title.style.fontSize = "";
+                title.style.letterSpacing = "";
                 title.innerHTML = "Verrassing! ✨";
+                
                 question.innerHTML = "We gaan lekker helemaal níét koken. Ik neem je gewoon écht chique mee uit eten! Wil je met mij op date? ❤️";
                 
-                // Zet de JA-knop naar de ultieme groene modus
+                // Zet de JA-knop naar de feestelijke groene modus
                 yesBtn.innerText = "JA! 🎉";
-                yesBtn.style.background = ""; // Pak de gradient uit de CSS
+                yesBtn.style.background = ""; // Reset inline goud zodat CSS gradient pakt
                 yesBtn.setAttribute("onclick", "celebrate()");
                 
-                // Activeer de NEE-knop. Dankzij de stabiele grid staan ze nu direct PERFECT recht naast elkaar.
+                // Activeer de NEE-knop. Ze staan nu DIRECT perfect recht en even groot naast elkaar!
                 noBtn.style.display = "inline-block";
                 noBtn.style.position = "relative";
                 noBtn.style.left = "0";
@@ -512,42 +556,46 @@
             }
         }
 
-        // INTERACTIEF WEGRENNEN + SPOOR VAN DEELTJES
+        // FONKELEND DEELTJESSPOOR + INTUITIEVE GRID ONTWIJKING
         function moveButton(event) {
             if (event) event.preventDefault();
 
             // Genereer fonkelende deeltjes op de oude locatie van de knop
             const rectBtnOld = noBtn.getBoundingClientRect();
-            for (let i = 0; i < 2; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('trail-particle');
-                particle.innerText = particlePool[Math.floor(Math.random() * particlePool.length)];
-                particle.style.left = (rectBtnOld.left + window.scrollX + rectBtnOld.width / 2 - 10) + 'px';
-                particle.style.top = (rectBtnOld.top + window.scrollY - 10) + 'px';
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 700);
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.classList.add('trail-particle');
+                    particle.innerText = particlePool[Math.floor(Math.random() * particlePool.length)];
+                    
+                    const driftX = (Math.random() - 0.5) * 20;
+                    particle.style.left = (rectBtnOld.left + window.scrollX + rectBtnOld.width / 2 - 10 + driftX) + 'px';
+                    particle.style.top = (rectBtnOld.top + window.scrollY - 10) + 'px';
+                    
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 700);
+                }, i * 60);
             }
 
             noCount++;
             noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
             icon.innerText = emojis[Math.min(noCount, emojis.length - 1)];
 
-            // Schakel flex/width over naar een vaste waarde om vervorming in de breedte te voorkomen
+            // Koppel los van flex/width zodat de JA-knop perfect rondom groeit
             if (!yesBtn.classList.contains('growing')) {
                 yesBtn.classList.add('growing');
             }
 
-            // Subtiele, perfect ronde schaling van de JA-knop
             yesSize += 0.08;
             yesBtn.style.transform = `scale(${yesSize})`;
 
-            // Pas NU mag de nee-knop losbreken uit het frame
+            // Nu mag de nee-knop losbreken uit de grid
             if (noBtn.style.position !== 'absolute') {
                 noBtn.style.position = 'absolute';
                 document.body.appendChild(noBtn);
             }
 
-            // Wiskundige grid-check: Zorg dat hij ALTIJD buiten de totale witte hoofdkaart springt
+            // Wiskundige check: Blijf buiten de totale witte hoofdkaart
             const containerRect = mainWrapper.getBoundingClientRect();
             const padding = 25;
             const btnWidth = noBtn.offsetWidth;
@@ -572,7 +620,7 @@
             noBtn.style.top = randomY + 'px';
         }
 
-        // DE FINALE CELEBRATIE (Confetti + WhatsApp omleiding)
+        // DE FINALE ONTKNOPING (Confetti-gordijn + WhatsApp omleiding)
         function celebrate() {
             const end = Date.now() + 3 * 1000;
             (function frame() {
@@ -580,6 +628,8 @@
                 confetti({ particleCount: 6, angle: 120, spread: 60, origin: { x: 1, y: 0.85 }, colors: ['#ff5e7e', '#ffb3c6', '#2ecc71', '#ffd700'] });
                 if (Date.now() < end) requestAnimationFrame(frame);
             }());
+
+            confetti({ particleCount: 80, spread: 80, origin: { y: 0.65 }, colors: ['#ffd700', '#ff5e7e'] });
 
             icon.innerText = "🥰🎉";
             title.innerHTML = "Woehoe, YES! 🥂✨";
